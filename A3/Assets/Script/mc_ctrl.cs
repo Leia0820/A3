@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class mc_ctrl : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class mc_ctrl : MonoBehaviour
     [SerializeField] private Transform ground_checker;
     [SerializeField] private Vector2 GroundCheckerSize;
     [SerializeField] private LayerMask Ground;
+    [SerializeField] private Animator animator;
 
     bool onGround;
 
@@ -29,6 +31,19 @@ public class mc_ctrl : MonoBehaviour
     {
         xInput = Input.GetAxis("Horizontal");
 
+        // Animation
+        animator.SetFloat("Speed", Mathf.Abs(xInput));
+
+        // Flip character
+        if (xInput > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (xInput < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
         rb.linearVelocityX = xInput * Speed;
         onGround = Physics2D.OverlapBox(ground_checker.position, GroundCheckerSize, 0, Ground);
 
@@ -36,5 +51,6 @@ public class mc_ctrl : MonoBehaviour
         {
             rb.linearVelocityY = JumpPower;
         }
+
     }
 }
