@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e1c0964b5e055e84abbb9ad0db7cbd2c
+guid: a7c618dc44413c448a337bb9e7ee98da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4587618545410393393
-    second: stage_2_bg_0
+      213: -8960626539518893715
+    second: tilemap_3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stage_2_bg_0
+      name: tilemap_3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 180
+        width: 84
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fcab1db3d318550c0800000000000000
-      internalID: -4587618545410393393
+      spriteID: d61e90343a575a380800000000000000
+      internalID: -8960626539518893715
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stage_2_bg_0: -4587618545410393393
+      tilemap_3_0: -8960626539518893715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
