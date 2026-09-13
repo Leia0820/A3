@@ -13,7 +13,18 @@ public class mainmenu_manager : MonoBehaviour
 
     public void GameStart()
     {
-        StartCoroutine(LevelStartAsync("level_1"));
+        StartCoroutine(StartGameAsync());
+    }
+
+    IEnumerator StartGameAsync()
+    {
+        loading_screen.SetActive(true);
+        AsyncOperation operation = SceneManager.LoadSceneAsync("level_selection");
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
     }
     public void GoTolevel_1()
     {
@@ -31,18 +42,29 @@ public class mainmenu_manager : MonoBehaviour
         }
     }
 
-    public void exit_button()
+    public void Openoption()
     {
+        option_screen.SetActive(true);
+    }
+
+    public void Closeoption()
+    {
+        option_screen.SetActive(false);
+    }
+
+    public void Exit_button()
+    {
+        Debug.Log("Exit");
         Application.Quit();
         EditorApplication.isPlaying = false;
     }
 
-    public void v_slider_slide()
+    public void V_slider_slide()
     {
         float volume = v_slider.value;
         audiomanager.instance.ChangeVolume(volume);
     }
-    public void s_slider_slide()
+    public void S_slider_slide()
     {
         float volume = s_slider.value;
         sfxmanager.instance.ChangeVolume(volume);
@@ -58,7 +80,7 @@ public class mainmenu_manager : MonoBehaviour
         sfxmanager.instance.buttonclick();
     }
 
-    public void playbuttonsfx()
+    public void Playbuttonsfx()
     {
         sfxmanager.instance.buttonclick();
     }

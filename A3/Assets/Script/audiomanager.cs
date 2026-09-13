@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,11 +10,11 @@ public class audiomanager : MonoBehaviour
     [System.Serializable]
     public class level_bgm
     {
-        public string level_1;
+        public string levelName;
         public AudioClip bgm;
     }
 
-    [SerializeField] private List<level_bgm> levelbgm;
+    [SerializeField] private level_bgm[] levels;
 
     private void Awake()
     {
@@ -39,13 +37,13 @@ public class audiomanager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlaySceneMusic(scene.name);
@@ -53,14 +51,19 @@ public class audiomanager : MonoBehaviour
 
     private void PlaySceneMusic(string sceneName)
     {
-        foreach (level_bgm level in levelbgm)
+        foreach (level_bgm level in levels)
         {
-            if (level.level_1 == sceneName)
+            if (level.levelName == sceneName)
             {
                 bgm.clip = level.bgm;
                 bgm.Play();
                 return;
             }
         }
+    }
+
+    public void ChangeVolume(float volume)
+    {
+        bgm.volume = volume;
     }
 }
