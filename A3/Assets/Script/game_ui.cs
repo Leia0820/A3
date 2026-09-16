@@ -27,7 +27,7 @@ public class game_ui : MonoBehaviour
     {
         if(lifes <= 0)
         {
-            Instantiate(game_over_screen);
+            game_over_screen.SetActive(true);
         }
 
         while(life_container.childCount < lifes)
