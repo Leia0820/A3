@@ -13,6 +13,9 @@ public class keydialogue_system : MonoBehaviour
         public string dialogue;
     }
 
+    [Header("enemy")]
+    [SerializeField] private enemeymanager enemyManager;
+
     [Header("Dialogue Content")]
     [SerializeField] private DialogueLine[] dialogue;
 
@@ -141,6 +144,17 @@ public class keydialogue_system : MonoBehaviour
         keydialogue_box.gameObject.SetActive(false);
 
         playermanager.instance.ActionAllow = true;
+
+        // Start enemy chase after dialogue
+        if (enemyManager != null)
+        {
+            Debug.Log("Dialogue Ended → Starting Enemy Chase!");
+            enemyManager.StartEnemyChase();
+        }
+        else
+        {
+            Debug.LogError("Enemy Manager is NOT assigned!");
+        }
     }
 
 

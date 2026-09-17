@@ -18,6 +18,19 @@ public class game_ui : MonoBehaviour
         playermanager.instance.OnLifesChange += UpdateLifesUI;
     }
 
+    private void OnDestroy()
+    {
+        if (playermanager.instance != null)
+        {
+            playermanager.instance.OnLifesChange -= UpdateLifesUI;
+        }
+
+        if (logic_manager.instance != null)
+        {
+            logic_manager.instance.OnScoreChange -= UpdateScoreUI;
+        }
+    }
+
     public void UpdateScoreUI(int score)
     {
         score_ui.text = score.ToString();
@@ -25,12 +38,16 @@ public class game_ui : MonoBehaviour
 
     public void UpdateLifesUI(int lifes)
     {
-        if(lifes <= 0)
+        if (lifes <= 0)
         {
             game_over_screen.SetActive(true);
         }
+        else
+        {
+            game_over_screen.SetActive(false);
+        }
 
-        while(life_container.childCount < lifes)
+        while (life_container.childCount < lifes)
         {
             Instantiate(life_image, life_container);
         }

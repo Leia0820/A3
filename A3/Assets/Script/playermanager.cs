@@ -32,15 +32,10 @@ public class playermanager : MonoBehaviour
         lifes = lifes - Value;
         OnLifesChange?.Invoke(lifes);
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetLifes()
     {
-        
+        lifes = 3;
+        OnLifesChange?.Invoke(lifes);
     }
 }

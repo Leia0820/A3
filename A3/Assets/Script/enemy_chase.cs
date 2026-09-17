@@ -2,65 +2,84 @@ using UnityEngine;
 
 public class enemy_chase : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private bool canChase = false;
-    private Transform enemy;
-    private Transform left_point;
-    private Transform right_point;
-    Rigidbody2D rb;
-    Vector3 scale;
+    [Header("Enemy")]
+    [SerializeField] private Transform dad_monster;
+    [SerializeField] private Transform mom_monster;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Chase")]
+    [SerializeField] private float speed = 0.5f;
+    [SerializeField] private bool canChase = false;
+
+    [Header("Chase Range")]
+    [SerializeField] private Transform left_point;
+    [SerializeField] private Transform right_point;
+
+    private Transform player;
 
     private void Awake()
     {
-        enemy = transform.Find("dad_monster");
-        enemy = transform.Find("mom_monster");
-        left_point = transform.Find("left");
-        right_point = transform.Find("right");
-        rb = enemy.GetComponent<Rigidbody2D>();
-    }
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        bool onTouchPlayer = collision.gameObject.CompareTag("Player");
-        if (onTouchPlayer && canChase)
+        if (playerObject != null)
         {
-            Vector3 player_position = collision.gameObject.transform.position;
-            scale = enemy.localScale;
-
-            if (enemy.position.x < player_position.x && enemy.position.x < right_point.position.x)
-            {
-                rb.linearVelocityX = speed * 1;
-                if (scale.x < 0)
-                {
-                    scale.x = scale.x * -1;
-                }
-            }
-            else if (enemy.position.x > player_position.x && enemy.position.x > right_point.position.x)
-            {
-                rb.linearVelocityX = speed * -1;
-                if (scale.x > 0)
-                {
-                    scale.x = scale.x * -1;
-                }
-            }
-
-            enemy.localScale = scale;
+            player = playerObject.transform;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (player == null || !canChase)
+            return;
+
+        // MC 在追逐范围内
+        if (player.position.x >= left_point.position.x &&
+            player.position.x <= right_point.position.x)
+        {
+            ChaseEnemy(dad_monster);
+            ChaseEnemy(mom_monster);
+        }
+        else
+        {
+            // MC 离开范围
+            StopEnemy(dad_monster);
+            StopEnemy(mom_monster);
+        }
+    }
+
+    private void ChaseEnemy(Transform enemy)
+    {
+        if (enemy == null)
+            return;
+
+        Vector3 scale = enemy.localScale;
+
+        if (player.position.x > enemy.position.x)
+        {
+            enemy.position += Vector3.right * speed * Time.deltaTime;
+
+            scale.x = Mathf.Abs(scale.x);
+        }
+        else if (player.position.x < enemy.position.x)
+        {
+            enemy.position += Vector3.left * speed * Time.deltaTime;
+
+            scale.x = -Mathf.Abs(scale.x);
+        }
+
+        enemy.localScale = scale;
+    }
+
+    private void StopEnemy(Transform enemy)
+    {
+        if (enemy == null)
+            return;
+
+        Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
         {
             rb.linearVelocityX = 0;
         }
-
     }
 
     public void StartChasing()
@@ -68,4 +87,11 @@ public class enemy_chase : MonoBehaviour
         canChase = true;
     }
 
+    public void StopChasing()
+    {
+        canChase = false;
+
+        StopEnemy(dad_monster);
+        StopEnemy(mom_monster);
+    }
 }

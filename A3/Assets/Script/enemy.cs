@@ -4,9 +4,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float Speed = 2f;
 
-    private Transform Player;
+    private Transform player;
     private bool canChase = false;
-    private Vector3 Scale;
+    private Vector3 scale;
 
     private void Awake()
     {
@@ -14,30 +14,30 @@ public class Enemy : MonoBehaviour
 
         if (playerObject != null)
         {
-            Player = playerObject.transform;
+            player = playerObject.transform;
         }
     }
 
     private void Update()
     {
-        if (Player == null || !canChase)
+        if (player == null || !canChase)
             return;
 
-        if (Player.position.x > transform.position.x)
+        if (player.position.x > transform.position.x)
         {
             transform.position += Vector3.right * Speed * Time.deltaTime;
 
-            Scale = transform.localScale;
-            Scale.x = Mathf.Abs(Scale.x);
-            transform.localScale = Scale;
+            scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x);
+            transform.localScale = scale;
         }
-        else if (Player.position.x < transform.position.x)
+        else if (player.position.x < transform.position.x)
         {
             transform.position += Vector3.left * Speed * Time.deltaTime;
 
-            Scale = transform.localScale;
-            Scale.x = -Mathf.Abs(Scale.x);
-            transform.localScale = Scale;
+            scale = transform.localScale;
+            scale.x = -Mathf.Abs(scale.x);
+            transform.localScale = scale;
         }
     }
 

@@ -29,6 +29,13 @@ public class mc_ctrl : MonoBehaviour
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        // 确保重新进入关卡时玩家状态正常
+        rb.simulated = true;
+        playermanager.instance.ActionAllow = true;
+
+        Debug.Log("MC START");
+        Debug.Log("Rigidbody Simulated: " + rb.simulated);
+        Debug.Log("MC Tag: " + gameObject.tag);
     }
 
     // Update is called once per frame
@@ -89,6 +96,9 @@ public class mc_ctrl : MonoBehaviour
 
     public void onDead()
     {
+
+        Debug.Log("PLAYER DEAD");
+
         playermanager.instance.LoseLifes(1);
 
         int CurrentLife = playermanager.instance.lifes;
@@ -99,6 +109,7 @@ public class mc_ctrl : MonoBehaviour
         }
         else
         {
+            Debug.Log("RESPAWN");
             StartCoroutine(DeadRespawnAnimation());
         }
     }

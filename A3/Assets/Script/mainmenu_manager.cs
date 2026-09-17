@@ -11,37 +11,54 @@ public class mainmenu_manager : MonoBehaviour
     [SerializeField] private GameObject option_screen;
     [SerializeField] private GameObject loading_screen;
 
+
+    // START BUTTON
+    // 直接进入 Level 1
     public void GameStart()
-    {
-        StartCoroutine(StartGameAsync());
-    }
-
-    IEnumerator StartGameAsync()
-    {
-        loading_screen.SetActive(true);
-        AsyncOperation operation = SceneManager.LoadSceneAsync("level_selection");
-
-        while (!operation.isDone)
-        {
-            yield return null;
-        }
-    }
-    public void GoTolevel_1()
     {
         StartCoroutine(LevelStartAsync("level_1"));
     }
 
-    IEnumerator LevelStartAsync(string level_1)
+
+    // LEVEL SELECT BUTTON
+    // 进入 Level Selection
+    public void GoToLevelSelect()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(level_1);
+        StartCoroutine(StartGameAsync());
+    }
+
+
+    // Load Level Selection
+    IEnumerator StartGameAsync()
+    {
         loading_screen.SetActive(true);
+
+        AsyncOperation operation =
+            SceneManager.LoadSceneAsync("level_selection");
+
         while (!operation.isDone)
         {
-            //Progress Status here
             yield return null;
         }
     }
 
+
+    // Load Level
+    IEnumerator LevelStartAsync(string levelName)
+    {
+        loading_screen.SetActive(true);
+
+        AsyncOperation operation =
+            SceneManager.LoadSceneAsync(levelName);
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+
+    // OPTION
     public void Openoption()
     {
         option_screen.SetActive(true);
@@ -52,34 +69,49 @@ public class mainmenu_manager : MonoBehaviour
         option_screen.SetActive(false);
     }
 
-    public void Exit_button()
+
+    // EXIT
+    public void exit_button()
     {
         Debug.Log("Exit");
+
         Application.Quit();
+
+#if UNITY_EDITOR
         EditorApplication.isPlaying = false;
+#endif
     }
 
-    public void V_slider_slide()
+
+    // VOLUME
+    public void v_slider_slide()
     {
         float volume = v_slider.value;
         audiomanager.instance.ChangeVolume(volume);
     }
-    public void S_slider_slide()
+
+
+    // SFX VOLUME
+    public void s_slider_slide()
     {
         float volume = s_slider.value;
         sfxmanager.instance.ChangeVolume(volume);
     }
-    
-    public void Activeoption_screen()
+
+
+    public void open_option_screen()
     {
         option_screen.SetActive(true);
     }
-    public void Deactiveoption_screen()
+
+    public void cloase_option_screen()
     {
         option_screen.SetActive(false);
         sfxmanager.instance.buttonclick();
     }
 
+
+    // BUTTON SFX
     public void Playbuttonsfx()
     {
         sfxmanager.instance.buttonclick();

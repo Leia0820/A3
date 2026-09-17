@@ -2,24 +2,25 @@ using UnityEngine;
 
 public class enemeymanager : MonoBehaviour
 {
-    private Transform enemy;
+    [SerializeField] private GameObject dad_monster;
+    [SerializeField] private GameObject mom_monster;
 
+    [SerializeField] private enemy_chase enemyChase;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        // Hide monsters at the beginning
+        dad_monster.SetActive(false);
+        mom_monster.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartEnemyChase()
     {
-        
-    }
+        // Show monsters
+        dad_monster.SetActive(true);
+        mom_monster.SetActive(true);
 
-    private void Awake()
-    {
-        enemy = transform.Find("dad_monster");
-        enemy = transform.Find("mom_monster");
+        // Start chasing
+        enemyChase.StartChasing();
     }
 }
