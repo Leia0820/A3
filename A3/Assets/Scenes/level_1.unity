@@ -10004,7 +10004,7 @@ Transform:
   m_GameObject: {fileID: 1174313929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34684628, y: 0.5181494, z: -10}
+  m_LocalPosition: {x: -0.35250443, y: 0.5181494, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12650,6 +12650,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5486056451202731611, guid: 86f81b02071cdf24487cf456dd34113c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5486056451202731611, guid: 86f81b02071cdf24487cf456dd34113c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1528840281}
     - target: {fileID: 7600283287068367124, guid: 86f81b02071cdf24487cf456dd34113c, type: 3}
       propertyPath: m_Name
       value: game_over_screen
