@@ -74,23 +74,16 @@ public class mc_ctrl : MonoBehaviour
         }
         gameObject.transform.localScale = Scale;
 
-        //Animation
-        if (rb.linearVelocityX != 0)
+        // Animation + Walking SFX
+        if (rb.linearVelocityX != 0 && onGround)
         {
             animator.SetBool("iswalking", true);
+            sfxmanager.instance.playwalking();
         }
-        else if(rb.linearVelocityX == 0)
+        else
         {
             animator.SetBool("iswalking", false);
-        }
-        if (onGround)
-        {
-            animator.SetBool("onGround", true);
-        }
-        else if (!onGround)
-        {
-            animator.SetBool("onGround", false);
-            animator.SetFloat("jump", rb.linearVelocityY);
+            sfxmanager.instance.stopwalking();
         }
     }
 

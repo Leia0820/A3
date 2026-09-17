@@ -33,6 +33,20 @@ public class sfxmanager : MonoBehaviour
 
     public void playwalking()
     {
-        sfx.PlayOneShot(walkingsfx);
+        if (!sfx.isPlaying)
+        {
+            sfx.clip = walkingsfx;
+            sfx.loop = true;
+            sfx.Play();
+        }
+    }
+
+    public void stopwalking()
+    {
+        if (sfx.isPlaying)
+        {
+            sfx.Stop();
+            sfx.loop = false;
+        }
     }
 }

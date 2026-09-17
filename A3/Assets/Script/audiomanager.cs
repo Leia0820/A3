@@ -51,15 +51,32 @@ public class audiomanager : MonoBehaviour
 
     private void PlaySceneMusic(string sceneName)
     {
+        Debug.Log("Current Scene: " + sceneName);
+
         foreach (level_bgm level in levels)
         {
+            Debug.Log("Checking Level: " + level.levelName);
+
             if (level.levelName == sceneName)
             {
+                Debug.Log("BGM FOUND: " + level.bgm);
+
+                if (bgm.clip == level.bgm && bgm.isPlaying)
+                {
+                    Debug.Log("This BGM is already playing.");
+                    return;
+                }
+
                 bgm.clip = level.bgm;
                 bgm.Play();
+
+                Debug.Log("Playing BGM: " + level.bgm.name);
+
                 return;
             }
         }
+
+        Debug.LogWarning("No BGM found for scene: " + sceneName);
     }
 
     public void ChangeVolume(float volume)
